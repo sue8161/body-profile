@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>나의 바디프로필 5개월 프로젝트</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;background:#f5f6f8;color:#18202a}
+.app{max-width:720px;margin:auto;padding:18px 16px 48px}.hero{background:#111827;color:white;border-radius:24px;padding:24px 20px;margin-bottom:14px}
+.eyebrow{font-size:13px;opacity:.7}.hero h1{margin:7px 0;font-size:27px}.hero p{margin:0;opacity:.8;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}.card{background:white;border-radius:18px;padding:16px;box-shadow:0 3px 15px #00000008}.label{font-size:12px;color:#727b86}.value{font-size:25px;font-weight:800;margin-top:4px}.unit{font-size:13px;font-weight:500}
+.progress{height:10px;background:#e8ebef;border-radius:99px;overflow:hidden;margin-top:10px}.bar{height:100%;background:#111827;border-radius:99px;width:0}
+section{margin-top:14px}.section-title{font-size:18px;font-weight:800;margin:0 0 10px}.week{display:flex;gap:10px;overflow:auto;padding-bottom:3px}.week button{border:0;background:white;border-radius:14px;padding:12px 15px;min-width:78px;box-shadow:0 2px 10px #00000007;font-weight:700}.week button.active{background:#111827;color:white}
+.row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #edf0f2}.row:last-child{border:0}.check{width:22px;height:22px}.small{font-size:12px;color:#7a828b}.btn{border:0;border-radius:13px;padding:11px 14px;background:#111827;color:white;font-weight:700}.btn.light{background:#eef0f3;color:#222}
+input[type=number],input[type=text],input[type=date]{width:100%;padding:12px;border:1px solid #e0e4e8;border-radius:12px;font-size:16px;background:#fff}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.note{width:100%;min-height:85px;padding:12px;border:1px solid #e0e4e8;border-radius:12px;resize:vertical;font:inherit}
+.notice{font-size:12px;color:#747d87;line-height:1.5;background:#fafafa;border-radius:12px;padding:12px;margin-top:10px}
+footer{text-align:center;color:#8a919a;font-size:11px;margin-top:24px}
+
+.exercise{border:1px solid #edf0f2;border-radius:16px;padding:14px;margin-top:12px;background:#fff}.exercise-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.exercise-name{font-size:16px;font-weight:800}.dose{font-size:12px;color:#707983}.exercise-body{display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:center;margin-top:10px}.pose{background:#f6f7f9;border-radius:14px;padding:6px;height:112px;display:flex;align-items:center;justify-content:center}.pose svg{width:100%;height:100%}.steps{font-size:13px;line-height:1.6;color:#4e5964}.steps b{color:#18202a}.video-btn{display:inline-flex;text-decoration:none;margin-top:10px;border-radius:11px;padding:9px 12px;background:#111827;color:#fff;font-size:12px;font-weight:800}.exercise-note{font-size:11px;color:#7a828b;margin-top:7px}@media(max-width:430px){.exercise-body{grid-template-columns:96px 1fr}.pose{height:100px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hero">
+    <div class="eyebrow">MY BODY PROFILE · 5 MONTH PROJECT</div>
+    <h1>천천히, 하지만 꾸준히 💪</h1>
+    <p>육아 중에도 가능한 현실적인 바디프로필 준비.<br>완벽하게 하는 것보다 계속하는 것을 목표로 해요.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="label">현재 체중</div><div class="value"><span id="weightValue">54.8</span><span class="unit"> kg</span></div></div>
+    <div class="card"><div class="label">목표 체중(참고)</div><div class="value">49~52<span class="unit"> kg</span></div></div>
+    <div class="card"><div class="label">키</div><div class="value">160.5<span class="unit"> cm</span></div></div>
+    <div class="card"><div class="label">전체 진행률</div><div class="value"><span id="percent">0</span><span class="unit"> %</span></div><div class="progress"><div id="bar" class="bar"></div></div></div>
+  </div>
+
+  <section>
+    <div class="section-title">📅 5개월 로드맵</div>
+    <div class="week" id="months"></div>
+    <div class="card" style="margin-top:10px">
+      <h3 id="monthTitle" style="margin:0 0 6px"></h3>
+      <p id="monthDesc" style="margin:0;color:#66707a;line-height:1.6"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">✅ 오늘의 체크</div>
+    <div class="card" id="checks">
+      <label class="row"><span>20~30분 근력운동</span><input class="check" type="checkbox" data-k="workout"></label>
+      <label class="row"><span>산책 / 가벼운 활동</span><input class="check" type="checkbox" data-k="walk"></label>
+      <label class="row"><span>단백질 챙겨 먹기</span><input class="check" type="checkbox" data-k="protein"></label>
+      <label class="row"><span>물 충분히 마시기</span><input class="check" type="checkbox" data-k="water"></label>
+      <label class="row"><span>충분히 쉬기</span><input class="check" type="checkbox" data-k="rest"></label>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">🏋️ 오늘의 운동</div>
+    <div class="card">
+      <b>집에서 20~30분 · 주 2~3회</b>
+      <div class="notice">운동 이름을 누르지 않아도 바로 자세 그림과 설명을 볼 수 있어요. 아래의 ▶ 영상 버튼을 누르면 해당 동작 영상을 볼 수 있습니다.</div>
+      <div id="exerciseList"></div>
+      <div class="notice">처음 2~4주는 횟수보다 정확한 자세를 익히는 것이 목표예요. 통증이 있으면 중단하고 무리하지 마세요.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">📊 오늘의 기록</div>
+    <div class="card">
+      <div class="formgrid">
+        <div><div class="small">체중(kg)</div><input id="weight" type="number" step="0.1" placeholder="54.8"></div>
+        <div><div class="small">허리(cm)</div><input id="waist" type="number" step="0.1" placeholder="선택"></div>
+      </div>
+      <div style="margin-top:10px"><div class="small">메모</div><textarea id="note" class="note" placeholder="오늘 컨디션, 식사, 운동 등을 기록해보세요."></textarea></div>
+      <button class="btn" style="margin-top:10px;width:100%" onclick="saveLog()">오늘 기록 저장</button>
+      <div id="saved" class="small" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">🎯 이번 달 핵심</div>
+    <div class="card">
+      <div class="row"><span>운동 습관 만들기</span><span>주 2~3회</span></div>
+      <div class="row"><span>산책/활동</span><span>가능한 날 20~40분</span></div>
+      <div class="row"><span>급격한 식단 제한</span><span>하지 않기</span></div>
+      <div class="row"><span>체중 변화</span><span>천천히</span></div>
+    </div>
+    <div class="notice">바디프로필은 체중 숫자보다 체형과 근육 라인이 중요해요. 임신·출산 직후이거나 수유 중이라면 감량 식단은 전문가와 상의해 주세요.</div>
+  </section>
+
+  <footer>기록은 이 기기의 브라우저에 저장됩니다. 앱을 삭제하거나 브라우저 데이터를 지우면 기록이 사라질 수 있어요.</footer>
+</div>
+<script>
+
+const exercises=[
+  {name:"스쿼트",dose:"12회 × 3세트",search:"스쿼트 초보 자세 운동",steps:"① 발을 어깨너비로 벌려요.<br>② 엉덩이를 뒤로 보내며 천천히 내려가요.<br>③ 발바닥으로 바닥을 밀며 일어나요.",note:"무릎과 발끝 방향을 비슷하게 유지하고 허리가 과하게 꺾이지 않게 해요.",svg:`<svg viewBox="0 0 100 100" aria-label="스쿼트 자세 그림"><circle cx="50" cy="18" r="7" fill="#111827"/><path d="M50 25 L50 50 L36 64 L62 64 M50 50 L37 40 M50 50 L63 40 M36 64 L26 82 M62 64 L76 82" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/><path d="M22 84 H80" stroke="#9aa2aa" stroke-width="3"/></svg>`},
+  {name:"글루트 브릿지",dose:"15회 × 3세트",search:"글루트 브릿지 자세 운동",steps:"① 등을 대고 누워 무릎을 세워요.<br>② 발뒤꿈치로 바닥을 밀며 엉덩이를 들어요.<br>③ 꼭대기에서 엉덩이를 조인 뒤 천천히 내려와요.",note:"허리를 꺾어 올리기보다 엉덩이로 들어 올리는 느낌으로 해요.",svg:`<svg viewBox="0 0 100 100" aria-label="글루트 브릿지 자세 그림"><circle cx="18" cy="62" r="6" fill="#111827"/><path d="M24 62 L42 50 L60 55 L72 70 M42 50 L55 35 M60 55 L76 40 M72 70 L86 70" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/><path d="M10 75 H90" stroke="#9aa2aa" stroke-width="3"/></svg>`},
+  {name:"벽 / 무릎 푸시업",dose:"8~12회 × 3세트",search:"벽 푸시업 무릎 푸시업 자세",steps:"① 처음이라면 벽에서 시작해요.<br>② 몸통을 일직선으로 유지하며 팔꿈치를 굽혀요.<br>③ 가슴이 벽/바닥에 가까워지면 다시 밀어내요.",note:"허리가 꺾이거나 엉덩이가 들리지 않게 해요. 벽 → 높은 지지면 → 무릎 순서로 난도를 올려도 좋아요.",svg:`<svg viewBox="0 0 100 100" aria-label="벽 푸시업 자세 그림"><path d="M82 10 V90" stroke="#9aa2aa" stroke-width="4"/><circle cx="37" cy="28" r="6" fill="#111827"/><path d="M37 35 L48 55 L63 50 M48 55 L58 70 M63 50 L78 45" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/><path d="M78 45 L82 45" stroke="#111827" stroke-width="5"/></svg>`},
+  {name:"밴드 / 수건 로우",dose:"12회 × 3세트",search:"밴드 로우 수건 로우 자세 운동",steps:"① 등을 곧게 세우고 가슴을 살짝 열어요.<br>② 팔꿈치를 뒤로 보내며 밴드/수건을 몸쪽으로 당겨요.<br>③ 어깨를 으쓱하지 말고 천천히 돌아가요.",note:"집에 밴드가 없다면 수건을 이용할 수 있지만, 수건은 저항이 약하므로 동작을 천천히 해요.",svg:`<svg viewBox="0 0 100 100" aria-label="로우 자세 그림"><circle cx="48" cy="18" r="7" fill="#111827"/><path d="M48 25 L48 58 M48 35 L28 45 M48 35 L68 45 M48 58 L36 82 M48 58 L62 82" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/><path d="M20 45 H76" stroke="#9aa2aa" stroke-width="3" stroke-dasharray="5 4"/></svg>`},
+  {name:"데드버그",dose:"8회 × 2세트",search:"데드버그 운동 자세 초보",steps:"① 등을 대고 누워 배에 힘을 줘요.<br>② 반대쪽 팔과 다리를 천천히 뻗어요.<br>③ 허리가 바닥에서 뜨지 않게 돌아와요.",note:"허리가 뜨기 시작하면 팔·다리를 덜 뻗어 난도를 낮춰요.",svg:`<svg viewBox="0 0 100 100" aria-label="데드버그 자세 그림"><circle cx="45" cy="48" r="7" fill="#111827"/><path d="M38 52 L25 65 M52 52 L66 65 M45 55 L45 72 M45 72 L28 88 M45 72 L64 88" fill="none" stroke="#111827" stroke-width="5" stroke-linecap="round"/><path d="M15 91 H85" stroke="#9aa2aa" stroke-width="3"/></svg>`}
+];
+function renderExercises(){
+  const el=document.getElementById("exerciseList");
+  el.innerHTML=exercises.map((e,i)=>`<div class="exercise">
+    <div class="exercise-head"><div class="exercise-name">${i+1}. ${e.name}</div><div class="dose">${e.dose}</div></div>
+    <div class="exercise-body"><div class="pose">${e.svg}</div><div class="steps">${e.steps}</div></div>
+    <a class="video-btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(e.search)}">▶ 영상으로 자세 보기</a>
+    <div class="exercise-note">💡 ${e.note}</div>
+  </div>`).join("");
+}
+renderExercises();
+
+const months=[
+["1개월차","운동 습관 만들기","집에서 20~30분 근력운동 주 2~3회 + 산책. 식사를 과하게 줄이지 않고 생활 리듬을 만드는 시기예요."],
+["2개월차","근육 만들기 시작","하체·등·어깨·복부를 골고루 자극하고, 가능하면 운동 강도를 조금씩 올려요."],
+["3개월차","체형 변화 집중","근력운동 주 3회와 활동량을 유지하면서 단백질과 식사 균형을 챙겨요."],
+["4개월차","라인 다듬기","운동 루틴을 안정화하고 체지방을 천천히 줄이는 단계. 사진으로 변화를 확인해요."],
+["5개월차","촬영 준비","컨디션을 최우선으로 하면서 촬영 포즈·의상·헤어·메이크업 등을 준비해요. 무리한 단식은 피하기."]
+];
+let state=JSON.parse(localStorage.getItem("bodyProfileApp")||'{"month":0,"checks":{},"logs":[]}');
+const monthsEl=document.getElementById("months");
+months.forEach((m,i)=>{let b=document.createElement("button");b.textContent=m[0];b.onclick=()=>selectMonth(i);monthsEl.appendChild(b)});
+function selectMonth(i){state.month=i;localStorage.setItem("bodyProfileApp",JSON.stringify(state));document.querySelectorAll("#months button").forEach((b,j)=>b.classList.toggle("active",j===i));document.getElementById("monthTitle").textContent=months[i][0]+" · "+months[i][1];document.getElementById("monthDesc").textContent=months[i][2]}
+document.querySelectorAll(".check").forEach(c=>c.addEventListener("change",()=>{state.checks[c.dataset.k]=c.checked;saveState();updateProgress()}));
+function saveState(){localStorage.setItem("bodyProfileApp",JSON.stringify(state))}
+function updateProgress(){let n=Object.values(state.checks).filter(Boolean).length;let p=Math.round(n/5*100);document.getElementById("percent").textContent=p;document.getElementById("bar").style.width=p+"%"}
+function saveLog(){let w=document.getElementById("weight").value||"";let wa=document.getElementById("waist").value||"";let note=document.getElementById("note").value||"";state.logs.push({date:new Date().toLocaleDateString("ko-KR"),weight:w,waist:wa,note});if(w)document.getElementById("weightValue").textContent=w;saveState();document.getElementById("saved").textContent="저장했어요. 오늘의 기록이 기기에 보관됩니다.";document.getElementById("weight").value="";document.getElementById("waist").value="";document.getElementById("note").value=""}
+selectMonth(state.month);Object.entries(state.checks).forEach(([k,v])=>{let c=document.querySelector('[data-k="'+k+'"]');if(c)c.checked=v});if(state.logs.length&&state.logs.at(-1).weight)document.getElementById("weightValue").textContent=state.logs.at(-1).weight;updateProgress();
+</script>
+</body>
+</html>
